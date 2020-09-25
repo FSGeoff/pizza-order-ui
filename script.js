@@ -44,11 +44,17 @@ options.addEventListener("click", function (event) {
     crustToDisplay.textContent = selectedCrust;
     selection.append(crustToDisplay);
     // TODO: Save to Local Storage
-    setTimeout(function () {
-      currentStage++;
-      var optionsToDisplay = stages[currentStage].options;
-      renderOptions(optionsToDisplay);
-    }, 1000);
+    
+    if (currentStage === stages.length - 1) {
+      alert("Your pizza is on its way!");
+    } else {
+      setTimeout(function () {
+        currentStage++;
+        var optionsToDisplay = stages[currentStage].options;
+        options.textContent = "";
+        renderOptions(optionsToDisplay);
+      }, 1000);
+    }
   }
 });
 
