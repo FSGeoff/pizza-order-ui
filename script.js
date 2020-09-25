@@ -4,18 +4,23 @@ var startButton = document.getElementById("create-pizza");
 var options = document.getElementById("options");
 var selection = document.getElementById("selection");
 
-startButton.addEventListener("click", function () {
-  welcomeContainer.style.display = "none";
-  renderOptions(availableCrusts);
-});
-
-var availableCrusts = ["Thin", "Hand Tossed", "Pan", "Deep Dish"];
-var availableMeats = ["Pepperoni", "Ham", "Sausage", "Beef", "Chicken"];
-
+var currentStage = 0;
+var stages = [
+  {
+    name: "Crust",
+    options: ["Thin", "Hand Tossed", "Pan", "Deep Dish"],
+  },
+  {
+    name: "Meats",
+    options: ["Pepperoni", "Ham", "Sausage", "Beef", "Chicken"],
+  },
+  {
+    name: "Veggies",
+    options: ["Green Peppers", "Onions", "Tomatoes", "Banana Peppers"],
+  },
+];
 
 function renderOptions(array) {
-  
-
   for (var i = 0; i < array.length; i++) {
     // 1. Create an element.
     var button = document.createElement("button");
@@ -39,9 +44,16 @@ options.addEventListener("click", function (event) {
     crustToDisplay.textContent = selectedCrust;
     selection.append(crustToDisplay);
     // TODO: Save to Local Storage
-    setTimeout(function(){
-        options.textContent = "";
-        renderOptions(availableMeats);
-    }, 1000)
+    setTimeout(function () {
+      currentStage++;
+      var optionsToDisplay = stages[currentStage].options;
+      renderOptions(optionsToDisplay);
+    }, 1000);
   }
+});
+
+startButton.addEventListener("click", function () {
+  welcomeContainer.style.display = "none";
+  var optionsToDisplay = stages[currentStage].options;
+  renderOptions(optionsToDisplay);
 });
