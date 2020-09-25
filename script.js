@@ -20,6 +20,12 @@ var stages = [
   },
 ];
 
+/**
+ * 
+ * @param {*} array 
+ * Takes in whatever array we pass in.
+ * Preferably options for the current stage. 
+ */
 function renderOptions(array) {
   for (var i = 0; i < array.length; i++) {
     // 1. Create an element.
@@ -33,6 +39,12 @@ function renderOptions(array) {
   }
 }
 
+/**
+ * Listens for the user to click on the options div.
+ * If the target of the click matches a <button> el
+ * We grab the data attribute of THAT button
+ * Move to the next stage. 
+ */
 options.addEventListener("click", function (event) {
   if (event.target.matches("button")) {
     console.log("You clicked a button");
@@ -44,7 +56,7 @@ options.addEventListener("click", function (event) {
     crustToDisplay.textContent = selectedCrust;
     selection.append(crustToDisplay);
     // TODO: Save to Local Storage
-    
+
     if (currentStage === stages.length - 1) {
       alert("Your pizza is on its way!");
     } else {
@@ -58,6 +70,11 @@ options.addEventListener("click", function (event) {
   }
 });
 
+/**
+ * When the start button is clicked
+ * Hide the welcome container
+ * Call renderOptions
+ */
 startButton.addEventListener("click", function () {
   welcomeContainer.style.display = "none";
   var optionsToDisplay = stages[currentStage].options;
